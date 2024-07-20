@@ -1,0 +1,37 @@
+/* Resources.css */
+.resources-section {
+    padding: 50px;
+    height: 400px;
+    background-color: #01021A;
+    margin-top: 0px;
+
+  }
+  .resources-section h2{
+    font-size: 30px;
+    color: white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-shadow: 
+    0 0 7px #fff,
+    0 0 10px #fff,
+    0 0 21px #fff,
+    0 0 42px #fffc5f,
+    0 0 82px #010100,
+    0 0 92px #fffc5f,
+    0 0 102px #fffecf;
+  }
+  
+  .video-container {
+    display: flex;
+    overflow-x: hidden;
+    white-space: nowrap;
+    /* height: 200px; */
+    padding: 20px 0;
+  }
+  #resourcepara{
+    color: white;
+    font-weight: 200;
+    font-size: 19px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+
+  
