@@ -7,7 +7,7 @@ header {
     justify-content: space-between;
     padding: 10px 20px;
     height: 6rem;
-    backdrop-filter: blur(50px);
+    /* backdrop-filter: blur(50px); */
     z-index: 100;
   }
   
@@ -46,16 +46,24 @@ header {
   
   
   .login-btn {
-    padding: 8px 16px;
-    background-color: #062443;
-    color: white;
+    background-color: #C2FBD7;
+    border-radius: 50px;
+    border-width: 0;
+    box-shadow: rgba(25, 25, 25, 0.04) 0 0 1px 0, rgba(0, 0, 0, 0.1) 0 3px 4px 0;
+    color: #008000;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 2em;
+    height: 45px;
     text-decoration: none;
-    border-radius: 8px;
-    transform: scale(1.1);
-    transition: all 0.5s ease-in-out;
+    padding: 8px 16px;
+    transition: all 200ms;
   }
   .login-btn:hover{
-    background-color: #064f6e;
+    background-color: #AFE6C3;
+    transform: scale(1.05);
+
+
   }
   
   .header-container li {
@@ -65,14 +73,14 @@ header {
   .header-container li a {
     font-weight: 400;
     font-size: 1.18rem;
-    color: #ca1652;
+    color: #c06d1f;
     text-decoration: none;
     align-items: center;
     transition: all 0.5s ease-in-out;
   }
   
   .header-container li a:hover {
-    color: #44051a;
+    color: #d84806;
     text-decoration: underline;
     transform: scale(1.1);
   }
