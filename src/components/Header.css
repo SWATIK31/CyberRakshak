@@ -1,0 +1,79 @@
+header {
+    display: flex;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    height: 6rem;
+    backdrop-filter: blur(50px);
+    z-index: 100;
+  }
+  
+  
+  .logo {
+    font-size: 2rem;
+    width: fit-content;
+  }
+  
+  .logo img {
+    height: 6rem; 
+    width: auto;
+    display: block;
+    border: 1px solid rgb(252, 252, 252);
+    border-radius: 50%;
+  }
+  
+  nav {
+    display: flex;
+    align-items: center;
+  }
+  
+  .header-container {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  
+  .login-btn {
+    padding: 8px 16px;
+    background-color: #062443;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    transform: scale(1.1);
+    transition: all 0.5s ease-in-out;
+  }
+  .login-btn:hover{
+    background-color: #064f6e;
+  }
+  
+  .header-container li {
+    margin: 0 10px;
+  }
+  
+  .header-container li a {
+    font-weight: 400;
+    font-size: 1.18rem;
+    color: #ca1652;
+    text-decoration: none;
+    align-items: center;
+    transition: all 0.5s ease-in-out;
+  }
+  
+  .header-container li a:hover {
+    color: #44051a;
+    text-decoration: underline;
+    transform: scale(1.1);
+  }
+  
