@@ -6,7 +6,10 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      'firebase': 'firebase/compat'  // Add this if you're using the compatibility version
+      // Add this if you're using the compatibility version
+      'firebase/auth': 'firebase/auth',
+      'firebase/app': 'firebase/app',
+      'firebase/firestore': 'firebase/firestore',
     }
   }
 });
