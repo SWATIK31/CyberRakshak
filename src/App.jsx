@@ -5,6 +5,7 @@ import HeroSection from './components/HeroSection';
 import ArticlesSection from './components/Articles';
 import Resources from './components/Resources';
 import HelpSection from './components/Help';
+import Chatbot from './components/chatbot'
 
 import './App.css';
 
@@ -20,6 +21,7 @@ function App() {
               <ArticlesSection id="articles" />
               <Resources id="resources" />
               <HelpSection id="safety-tips" />
+              <Chatbot id="bot"/>
              
             </main>
           } />
