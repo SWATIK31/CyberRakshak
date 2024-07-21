@@ -6,6 +6,7 @@ import ArticlesSection from './components/Articles';
 import Resources from './components/Resources';
 import HelpSection from './components/Help';
 import Chatbot from './components/chatbot'
+import QuizApp from './components/Quiz'
 
 import './App.css';
 
@@ -18,6 +19,7 @@ function App() {
           <Route path="/" element={
             <main>
               <HeroSection id="hero" />
+              <QuizApp id="quiz" />
               <ArticlesSection id="articles" />
               <Resources id="resources" />
               <HelpSection id="safety-tips" />
