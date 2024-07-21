@@ -89,7 +89,7 @@
     position: relative;
     overflow: hidden;
     width: 150px;
-    animation: float 2.5s ease-in-out infinite
+    /* animation: float 2.5s ease-in-out infinite */
   }
   
   .start-quiz-btn:before {

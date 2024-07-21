@@ -54,7 +54,7 @@
     color: rgb(237, 237, 237);
   flex-direction: column;
   transition: transform 0.3s ease,box-shadow 0.3s ease;
-  animation: float 5s ease-in-out infinite;
+  /* animation: float 5s ease-in-out infinite; */
   }
   .card:hover {
     box-shadow: 0 10px 20px rgba(245, 242, 242, 0.867);
@@ -65,7 +65,7 @@
       transform: translateY(0px);
     }
     50% {
-      transform: translateY(-8px);
+      transform: translateY(-6px);
     }
     100% {
       transform: translateY(0px);
