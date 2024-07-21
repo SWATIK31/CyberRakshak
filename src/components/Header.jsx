@@ -18,14 +18,6 @@ function Header() {
         <Link to="/"><img src={logo} alt="Logo" /></Link>
       </div>
       <nav>
-        <ul className="header-container">
-          <li><Link to="/" onClick={(event) => scrollToSection('hero', event)}>Home</Link></li>
-          <li><Link to="/" onClick={(event) => scrollToSection('quiz', event)}>Quiz</Link></li>
-          <li><Link to="/" onClick={(event) => scrollToSection('articles', event)}>Articles</Link></li>
-          <li><Link to="/" onClick={(event) => scrollToSection('safety-tips', event)}>Safety Tips</Link></li>
-          <li><Link to="/" onClick={(event) => scrollToSection('resources', event)}>Resources</Link></li>
-          <li><Link to="/" onClick={(event) => scrollToSection('Blog', event)}>Blog</Link></li>
-        </ul>
         <Link className="login-btn" to="/login">Login</Link>
       </nav>
     </header>

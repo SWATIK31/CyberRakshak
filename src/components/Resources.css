@@ -1,4 +1,3 @@
-/* Resources.css */
 .resources-section {
     padding: 50px;
     height: 400px;
@@ -16,7 +15,7 @@
     0 0 21px #fff,
     0 0 42px #fffc5f,
     0 0 82px #010100,
-    0 0 92px #fffc5f,
+    0 0 92px #e9e649,
     0 0 102px #fffecf;
   }
   
@@ -24,7 +23,6 @@
     display: flex;
     overflow-x: hidden;
     white-space: nowrap;
-    /* height: 200px; */
     padding: 20px 0;
   }
   #resourcepara{

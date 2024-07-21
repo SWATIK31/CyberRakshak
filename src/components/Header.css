@@ -18,7 +18,7 @@ header {
   }
   
   .logo img {
-    height: 6rem; 
+    height: 5rem; 
     width: auto;
     display: block;
     border: 1px solid rgb(252, 252, 252);
@@ -46,24 +46,22 @@ header {
   
   
   .login-btn {
-    background-color: #C2FBD7;
-    border-radius: 50px;
+    background-color: #1780b8;
+    border-radius: 30px;
     border-width: 0;
     box-shadow: rgba(25, 25, 25, 0.04) 0 0 1px 0, rgba(0, 0, 0, 0.1) 0 3px 4px 0;
-    color: #008000;
+    color: #ffffff;
     cursor: pointer;
     display: inline-block;
-    font-size: 2em;
-    height: 45px;
+    font-size: 1.4em;
+    height: 40px;
     text-decoration: none;
-    padding: 8px 16px;
+    padding: 6px 16px;
     transition: all 200ms;
   }
   .login-btn:hover{
-    background-color: #AFE6C3;
+    background-color: #154a80;
     transform: scale(1.05);
-
-
   }
   
   .header-container li {
