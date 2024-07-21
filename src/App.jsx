@@ -4,6 +4,7 @@ import Header from './components/Header';
 import HeroSection from './components/HeroSection';
 import ArticlesSection from './components/Articles';
 import Resources from './components/Resources';
+import HelpSection from './components/Help';
 
 import './App.css';
 
@@ -18,6 +19,7 @@ function App() {
               <HeroSection id="hero" />
               <ArticlesSection id="articles" />
               <Resources id="resources" />
+              <HelpSection id="safety-tips" />
              
             </main>
           } />
