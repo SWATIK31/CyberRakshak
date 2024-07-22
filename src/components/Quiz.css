@@ -254,4 +254,58 @@
       transform: translateY(0px);
     }
   }
+
+
+  @media screen and (max-width: 768px) {
+    .quiz-section {
+      flex-direction: column;
+      padding: 1rem;
+    }
+  
+    .cybersecurity-intro {
+      padding: 1rem;
+    }
+  
+    .cybersecurity-intro h2 {
+      font-size: 40px;
+      padding-bottom: 20px;
+    }
+  
+    .quiz-container {
+      padding: 1rem;
+    }
+  
+    .quizimg {
+      max-width: 100%;
+      height: auto;
+    }
+  
+    .start-quiz-btn {
+      width: 100%;
+      max-width: 200px;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .cybersecurity-intro h2 {
+      font-size: 30px;
+    }
+  
+    p {
+      font-size: 14px;
+    }
+  
+    .start-quiz-btn {
+      font-size: 1rem;
+      padding: 10px 5px;
+    }
+  
+    .quiz-content h1 {
+      font-size: 24px;
+    }
+  
+    .react-quiz-container .answerBtn {
+      font-size: 14px;
+    }
+  }
   
