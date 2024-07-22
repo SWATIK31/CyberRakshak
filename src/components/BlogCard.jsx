@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../config/Firebase';
-import { collection, query, where, onSnapshot, addDoc, serverTimestamp, updateDoc, doc } from 'firebase/firestore';
+import { collection, query, where, onSnapshot, addDoc, serverTimestamp, deleteDoc, getDocs } from 'firebase/firestore';
 import { useAuth } from '../context/authContext.jsx';
 import './BlogCard.css';
 import { toast } from 'react-toastify';
-import { FaComment, FaShare, FaThumbsUp } from 'react-icons/fa';
+import { FaComment, FaShare, FaThumbsUp, FaTimes } from 'react-icons/fa';
 import Modal from 'react-modal';
 
 const BlogCard = () => {
@@ -87,14 +87,12 @@ const BlogCard = () => {
 
     try {
       if (userHasLiked) {
-        // Remove like
-        const likeDoc = query(collection(db, 'likes'), where('blogId', '==', blogId), where('userId', '==', currentUser.uid));
-        const snapshot = await likeDoc.get();
+        const likeQuery = query(collection(db, 'likes'), where('blogId', '==', blogId), where('userId', '==', currentUser.uid));
+        const snapshot = await getDocs(likeQuery);
         snapshot.forEach(async (doc) => {
-          await doc.ref.delete();
+          await deleteDoc(doc.ref);
         });
       } else {
-        // Add like
         await addDoc(collection(db, 'likes'), {
           blogId,
           userId: currentUser.uid,
@@ -141,34 +139,48 @@ const BlogCard = () => {
     closeShareModal();
   };
 
+  const closeCommentSection = () => {
+    setSelectedBlog(null);
+    setComment('');
+  };
+
   return (
     <div>
       <h2 className="blog-heading">Blogs</h2>
       <div className="blog-card-container">
         {blogs.map(blog => (
-          <div key={blog.id} className="blog-card">
-            <h3>{blog.title}</h3>
-            <p className="category">{blog.category}</p>
-            <p className="content">{blog.content}</p>
-            <p className="date">{blog.createdAt ? new Date(blog.createdAt.seconds * 1000).toLocaleString() : 'N/A'}</p>
-            <div className="actions">
-              <button className="comment_button" onClick={() => setSelectedBlog(selectedBlog === blog.id ? null : blog.id)}>
-                <FaComment /> Comment
-              </button>
-              <button className="share_button" onClick={() => openShareModal(blog.id)}>
-                <FaShare /> Share
-              </button>
-              <button className="Like_button" onClick={() => handleLike(blog.id)}>
-                <FaThumbsUp /> Like {likes[blog.id]?.length || 0}
-              </button>
+          <div key={blog.id} className="blog-card-wrapper">
+            <div className="blog-card">
+              <h3>{blog.title}</h3>
+              <p className="category">{blog.category}</p>
+              <p className="content">{blog.content}</p>
+              <p className="date">{blog.createdAt ? new Date(blog.createdAt.seconds * 1000).toLocaleString() : 'N/A'}</p>
+              <div className="actions">
+                <button className="comment_button" onClick={() => setSelectedBlog(selectedBlog === blog.id ? null : blog.id)}>
+                  <FaComment /> Comment
+                </button>
+                <button className="share_button" onClick={() => openShareModal(blog.id)}>
+                  <FaShare /> Share
+                </button>
+                <button className="like_button" onClick={() => handleLike(blog.id)}>
+                  <FaThumbsUp /> Like {likes[blog.id]?.length || 0}
+                </button>
+              </div>
             </div>
             {selectedBlog === blog.id && (
               <div className="comment-section">
+                <div className="comment-header">
+                  <h4>Comments</h4>
+                  <button className="close-button" onClick={closeCommentSection}>
+                    <FaTimes />
+                  </button>
+                </div>
                 <textarea
                   placeholder="Add a comment..."
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
                 />
+                <p className="commenting-as">Commenting as: {currentUser.displayName}</p>
                 <button onClick={() => handleCommentSubmit(blog.id)}>Submit</button>
                 <div className="comments-list">
                   {filteredComments(blog.id).map(comment => (
@@ -181,7 +193,6 @@ const BlogCard = () => {
         ))}
       </div>
 
-      {/* Share Modal */}
       <Modal
         isOpen={shareModalIsOpen}
         onRequestClose={closeShareModal}
