@@ -5,7 +5,7 @@
 
 .sidebar {
   width: 25%;
-  background-color: #f4f4f4;
+  background-color: #01021e;
   padding: 20px;
 }
 
@@ -26,6 +26,7 @@
 
 .buttons {
   margin-top: 20px;
+  border-radius: 20px;
 }
 
 .create-blog-btn, .logout-btn {

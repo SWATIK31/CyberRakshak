@@ -3,7 +3,7 @@ import { useAuth } from '../context/authContext.jsx';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { db } from '../config/Firebase';
-import { collection, query, where, onSnapshot } from 'firebase/firestore';
+import { collection, query, where, onSnapshot, doc, getDoc } from 'firebase/firestore';
 import CreateBlogModal from "./CreateBlogNodel.jsx"
 import './Dashboard.css';
 
@@ -12,9 +12,29 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [blogs, setBlogs] = useState([]);
+  const [userName, setUserName] = useState('User');
 
   useEffect(() => {
     if (currentUser) {
+      // Fetch user data from Firestore
+      const fetchUserData = async () => {
+        try {
+          const userDocRef = doc(db, 'users', currentUser.uid);
+          const userDocSnap = await getDoc(userDocRef);
+          if (userDocSnap.exists()) {
+            setUserName(userDocSnap.data().name || 'User');
+          } else {
+            console.log("No such document!");
+            setUserName('User');
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+          setUserName('User');
+        }
+      };
+      fetchUserData();
+
+      // Fetch blogs
       const q = query(collection(db, 'blogs'), where('authorId', '==', currentUser.uid));
       const unsubscribe = onSnapshot(q, (snapshot) => {
         const blogsData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -40,12 +60,12 @@ const Dashboard = () => {
     <div className="dashboard-container">
       <div className="sidebar">
         <div className="profile-section">
-          <img 
-            src={currentUser?.photoURL || 'https://via.placeholder.com/50'} 
-            alt="Profile" 
-            className="profile-icon" 
+          <img
+            src={currentUser?.photoURL || 'https://via.placeholder.com/50'}
+            alt="Profile"
+            className="profile-icon"
           />
-          <h2>{currentUser?.displayName || 'User'}</h2>
+          <h2>{userName}</h2>
         </div>
         <div className="buttons">
           <button className="create-blog-btn" onClick={() => setShowModal(true)}>Create Blog</button>
@@ -53,9 +73,7 @@ const Dashboard = () => {
         </div>
       </div>
       <div className="main-content">
-        <h2>User Performance</h2>
-        {/* Add user performance details here */}
-        <h3>Your Blogs</h3>
+        <h2>Your Blogs</h2>
         <table>
           <thead>
             <tr>
