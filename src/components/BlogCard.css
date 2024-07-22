@@ -1,0 +1,166 @@
+.blog-card-container {
+    display: flex;
+    flex-wrap: wrap; /* Allows cards to wrap to the next line */
+    justify-content: center; /* Center cards horizontally */
+    gap: 1.5rem; /* Increased space between cards */
+    padding: 1.5rem; /* Increased padding for more space */
+    max-width: 1200px; /* Increased width of the container */
+    margin: 0 auto; /* Center the container horizontally */
+  }
+  
+  .blog-heading {
+    font-size: 2.5em; /* Increased font size */
+    margin-bottom: 2rem; /* Increased space below the heading */
+    color: #5ed851; /* Heading color */
+    text-align: center; /* Centered heading text */
+  }
+  
+  .blog-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 400px; /* Adjust width for horizontal layout */
+    background-color: #fff; /* White background */
+    margin: 0; /* Remove vertical margin */
+    flex: 1 1 auto; /* Allow cards to grow and shrink */
+  }
+  
+  .blog-card h3 {
+    margin: 0 0 10px;
+  }
+  
+  .blog-card .category {
+    font-style: italic;
+    color: #007bff; /* Changed to a blue color */
+  }
+  
+  .blog-card .content {
+    margin: 0.5rem 0;
+    color: #555;
+  }
+  
+  .blog-card .date {
+    font-size: 0.8rem;
+    color: #888;
+  }
+  
+  .actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .comment_button {
+    background-color: #4b6374;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+  
+  .comment_button:hover {
+    background-color: #3f8d8d;
+  }
+  
+  .share_button {
+    background-color: #3f878d;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+  
+  .share_button:hover {
+    background-color: #0d5c3e;
+  }
+  
+  .Like_button {
+    background-color: #bc2763; /* Light pink color */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+  
+  .Like_button:hover {
+    background-color: #610a2d;
+  }
+  
+  .comment-section {
+    margin-top: 1rem;
+  }
+  
+  .comment-section textarea {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
+  
+  .comment-section button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .comment-section button:hover {
+    background-color: #0056b3;
+  }
+  
+  .comments-list {
+    margin-top: 0.5rem;
+    max-height: 150px;
+    overflow-y: auto;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+  }
+  
+  .comments-list p {
+    margin: 0.5rem 0;
+    color: #555;
+  }
+  .share-modal {
+    position: relative;
+    margin: auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 400px;
+  }
+  
+  .share-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+  }
+  
+  .share-modal h2 {
+    margin-top: 0;
+  }
+  
+  .share-modal button {
+    display: block;
+    width: 100%;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    border: none;
+    background-color: #5daddb;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .share-modal button:hover {
+    background-color: #6eccbb;
+  }
+  

@@ -10,6 +10,7 @@ import QuizApp from './components/Quiz';
 import Login from './components/Login';
 import Signup from './components/SignUp';
 import Dashboard from './Screens/Dashboard';
+import BlogCard from './components/BlogCard';
 import { AuthProvider } from './context/authContext.jsx';
 import { ToastContainer } from 'react-toastify';
 import Footer from './components/Footer';
@@ -37,6 +38,7 @@ function App() {
             <Route path="/register" element={<Signup />} />
             <Route path="/dashboard" element={<Dashboard />} />
           </Routes>
+          <BlogCard /> {/* Add this line to include BlogCard above Footer */}
           <ToastContainer />
           <Footer />
         </div>
