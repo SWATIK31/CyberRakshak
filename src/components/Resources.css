@@ -1,15 +1,15 @@
 .resources-section {
-    padding: 50px;
-    height: 400px;
-    background-color: #01021A;
-    margin-top: 0px;
+  padding: 50px;
+  background-color: #01021A;
+  margin-top: 0px;
+  overflow: hidden; /* Add this to hide any overflow */
+}
 
-  }
-  .resources-section h2{
-    font-size: 30px;
-    color: white;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    text-shadow: 
+.resources-section h2 {
+  font-size: 30px;
+  color: white;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  text-shadow: 
     0 0 7px #fff,
     0 0 10px #fff,
     0 0 21px #fff,
@@ -17,19 +17,47 @@
     0 0 82px #010100,
     0 0 92px #e9e649,
     0 0 102px #fffecf;
-  }
-  
-  .video-container {
-    display: flex;
-    overflow-x: hidden;
-    white-space: nowrap;
-    padding: 20px 0;
-  }
-  #resourcepara{
-    color: white;
-    font-weight: 200;
-    font-size: 19px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.video-container {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden; /* Hide vertical scrollbar */
+  white-space: nowrap;
+  padding: 20px 0;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.video-container::-webkit-scrollbar {
+  display: none; /* WebKit */
+}
+
+.video-container.mobile {
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto; /* Allow vertical scrolling on mobile */
+}
+
+#resourcepara {
+  color: white;
+  font-weight: 200;
+  font-size: 19px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+/* Media query for small screens */
+@media (max-width: 768px) {
+  .resources-section {
+    padding: 20px;
   }
 
-  
+  .resources-section h2 {
+    font-size: 24px;
+  }
+
+  #resourcepara {
+    font-size: 16px;
+  }
+}

@@ -40,12 +40,12 @@ function HeroSection() {
   }, []);
 
   return (
-    <section className="hero-container">
+    <div className="hero-container">
       <div className="hero-content">
-        <h3 className='heading'>{headingText}</h3>
+        <h1 className="heading">{headingText}</h1>
         <p>{paragraphText}</p>
       </div>
-    </section>
+    </div>
   );
 }
 
