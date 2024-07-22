@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
-import './Login.css';
-import { FaUser, FaLock } from "react-icons/fa";
+import { useAuth } from '../context/authContext.jsx';
+import { doSignInWithEmailAndPassword } from '../config/FirebaseAuth';
 import { useNavigate } from 'react-router-dom';
-import { doSignInWithEmailAndPassword } from "../config/FirebaseAuth";
+import './Login.css';
+import { FaUser, FaLock } from 'react-icons/fa';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const Login = ({ onSuccess }) => {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -15,12 +19,14 @@ const Login = ({ onSuccess }) => {
     setError('');
 
     try {
-      await doSignInWithEmailAndPassword(email, password);
-      if (onSuccess) onSuccess();
-      navigate('/');
+      const userCredential = await doSignInWithEmailAndPassword(email, password);
+      const user = userCredential.user;
+      login(user);
+      toast.success('Logged in successfully!');
+      navigate('/dashboard');
     } catch (error) {
       setError('Failed to log in. Please check your credentials.');
-      console.error("Login error:", error);
+      console.error('Login error:', error);
     }
   };
 
@@ -56,6 +62,7 @@ const Login = ({ onSuccess }) => {
           </div>
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 }

@@ -1,80 +1,110 @@
 #reset-this-root {
-    all: unset;
+  all: unset;
+}
+
+.hero-container {
+  min-height: 100vh;
+  width: 100%;
+  /* background-image: url('../assets/herobg1.jpg'); */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2%;
+  box-sizing: border-box;
+  border-radius: 1%;
+  position: relative;
+}
+
+.hero-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  color: white;
+  text-align: center;
+}
+
+.heading {
+  margin-top: 30px;
+  font-size: 4rem;
+  text-transform: uppercase;
+  background-image: linear-gradient(
+    -225deg,
+    #231557 0%,
+    #44107a 29%,
+    #9f4d69 67%,
+    #fff800 100%
+  );
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 2s linear infinite;
+  display: inline-block;
+}
+
+@keyframes textclip {
+  to {
+    background-position: 200% center;
   }
-  
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.heading::after {
+  content: '|';
+  animation: blink 0.7s infinite;
+}
+
+.hero-content p::after {
+  content: '|';
+  animation: blink 0.7s infinite;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
   .hero-container {
-    min-height: 100vh;
-    width: 100%;
-    /* background-image: url('../assets/herobg1.jpg'); */
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2%;
-    box-sizing: border-box;
-    border-radius: 1%;
-    position: relative;
-  }
-  
-  .hero-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5); 
-  }
-  
-  .hero-content {
-    position: relative;
-    z-index: 1;
-    color: white;
-    text-align: center;
-  }
-  .heading {
-    margin-top: 30px;
-    font-size: 4rem;
-    text-transform: uppercase;
-    background-image: linear-gradient(
-      -225deg,
-      #231557 0%,
-      #44107a 29%,
-      #9f4d69 67%,
-      #fff800 100%
-    );
-    background-size: auto auto;
-    background-clip: border-box;
-    background-size: 200% auto;
-    color: #fff;
-    background-clip: text;
-    text-fill-color: transparent;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: textclip 2s linear infinite;
-    display: inline-block;
-  }
-  
-  @keyframes textclip {
-    to {
-      background-position: 200% center;
-    }
+    padding: 5%;
   }
 
-  @keyframes blink {
-    0% { opacity: 1; }
-    50% { opacity: 0; }
-    100% { opacity: 1; }
+  .heading {
+    font-size: 2.5rem;
   }
-  
-  .heading::after {
-    content: '|';
-    animation: blink 0.7s infinite;
+
+  .hero-content p {
+    font-size: 1rem;
   }
-  
-  .hero-content p::after {
-    content: '|';
-    animation: blink 0.7s infinite;
+}
+
+@media screen and (max-width: 480px) {
+  .hero-container {
+    padding: 10%;
   }
+
+  .heading {
+    font-size: 2rem;
+  }
+
+  .hero-content p {
+    font-size: 0.9rem;
+  }
+}

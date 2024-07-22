@@ -1,14 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/authContext.jsx';
 import './Header.css';
 import logo from '../assets/logo.png';
 
 function Header() {
-  const scrollToSection = (sectionId, event) => {
-    event.preventDefault(); // Prevent default link behavior
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+  const { currentUser, userLoggedIn } = useAuth();
+  const navigate = useNavigate(); // For programmatic navigation
+
+  // Function to handle profile icon click
+  const handleProfileClick = () => {
+    if (userLoggedIn) {
+      navigate('/dashboard');
     }
   };
 
@@ -18,7 +21,15 @@ function Header() {
         <Link to="/"><img src={logo} alt="Logo" /></Link>
       </div>
       <nav>
-        <Link className="login-btn" to="/login">Login</Link>
+        {userLoggedIn ? (
+          <div className="user-profile" onClick={handleProfileClick}>
+            <div className="profile-icon">
+              {currentUser?.displayName ? currentUser.displayName.charAt(0).toUpperCase() : 'U'}
+            </div>
+          </div>
+        ) : (
+          <Link className="login-btn" to="/login">Login</Link>
+        )}
       </nav>
     </header>
   );
