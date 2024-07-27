@@ -1,206 +1,253 @@
+.blog-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.blog-heading {
+  font-size: 2.5em;
+  margin-bottom: 2rem;
+  color: #5ed851;
+  text-align: center;
+}
+
+.blog-scroll-container {
+  position: relative;
+  overflow: hidden;
+}
+
 .blog-card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.5rem;
-    padding: 1.5rem;
-    max-width: 1200px;
-    margin: 0 auto;
+  display: flex;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.blog-card-wrapper {
+  flex: 0 0 calc(33.333% - 20px);
+  margin: 0 10px;
+  max-width: calc(33.333% - 20px);
+  transition: all 0.3s ease;
+}
+
+.blog-card-wrapper.expanded {
+  flex: 0 0 calc(50% - 20px);
+  max-width: calc(50% - 20px);
+}
+
+.blog-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #02081a;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-card h3 {
+  margin: 0 0 10px;
+  color: white;
+}
+
+.blog-card .category {
+  font-style: italic;
+  color: #007bff;
+}
+
+.blog-card .content {
+  margin: 0.5rem 0;
+  color: #555;
+  flex-grow: 1;
+}
+
+.blog-card .date {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.comment_button, .share_button, .like_button {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  color: #fff;
+}
+
+.comment_button {
+  background-color: #4b6374;
+}
+
+.comment_button:hover {
+  background-color: #3f8d8d;
+}
+
+.share_button {
+  background-color: #3f878d;
+}
+
+.share_button:hover {
+  background-color: #0d5c3e;
+}
+
+.like_button {
+  background-color: #bc2763;
+}
+
+.like_button:hover {
+  background-color: #610a2d;
+}
+
+.comment-section {
+  background-color: #03102a;
+  border-top: 1px solid #ddd;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2em;
+  color: #888;
+}
+
+.comment-section textarea {
+  width: 100%;
+  height: 80px;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.commenting-as {
+  font-size: 0.9em;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.comment-section button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.comment-section button:hover {
+  background-color: #0056b3;
+}
+
+.comments-list {
+  margin-top: 0.5rem;
+  max-height: 150px;
+  overflow-y: auto;
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+}
+
+.comments-list p {
+  margin: 0.5rem 0;
+  color: #555;
+}
+
+.scroll-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.scroll-button.left {
+  left: 10px;
+}
+
+.scroll-button.right {
+  right: 10px;
+}
+
+.scroll-button:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.share-modal {
+  position: relative;
+  margin: auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 400px;
+}
+
+.share-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.share-modal h2 {
+  margin-top: 0;
+}
+
+.share-modal button {
+  display: block;
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  border: none;
+  background-color: #5daddb;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.share-modal button:hover {
+  background-color: #6eccbb;
+}
+
+@media screen and (max-width: 768px) {
+  .blog-card-wrapper,
+  .blog-card-wrapper.expanded {
+    flex: 0 0 calc(50% - 20px);
+    max-width: calc(50% - 20px);
   }
-  
-  .blog-heading {
-    font-size: 2.5em;
-    margin-bottom: 2rem;
-    color: #5ed851;
-    text-align: center;
-  }
-  
+}
+
+@media screen and (max-width: 480px) {
   .blog-card-wrapper {
-    width: calc(33.333% - 1rem);
-    display: flex;
-    flex-direction: column;
+    flex: 0 0 calc(100% - 20px);
+    max-width: calc(100% - 20px);
   }
-  
-  .blog-card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background-color: #02081a;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .blog-card h3 {
-    margin: 0 0 10px;
-    color: white;
-  }
-  
-  .blog-card .category {
-    font-style: italic;
-    color: #007bff;
-  }
-  
-  .blog-card .content {
-    margin: 0.5rem 0;
-    color: #555;
-    flex-grow: 1;
-  }
-  
-  .blog-card .date {
-    font-size: 0.8rem;
-    color: #888;
-  }
-  
-  .actions {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-  
-  .comment_button, .share_button, .Like_button {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    color: #fff;
-  }
-  
-  .comment_button {
-    background-color: #4b6374;
-  }
-  
-  .comment_button:hover {
-    background-color: #3f8d8d;
-  }
-  
-  .share_button {
-    background-color: #3f878d;
-  }
-  
-  .share_button:hover {
-    background-color: #0d5c3e;
-  }
-  
-  .Like_button {
-    background-color: #bc2763;
-  }
-  
-  .Like_button:hover {
-    background-color: #610a2d;
-  }
-  
-  .comment-section {
-    margin-top: 1rem;
-    border-top: 1px solid #b9a7a7;
-    padding-top: 1rem;
-  }
-  
-  .comment-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-  
-  .close-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1.2em;
-    color: #888;
-  }
-  
-  .comment-section textarea {
-    width: 100%;
-    height: 80px;
-    padding: 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
-  }
-  
-  .commenting-as {
-    font-size: 0.9em;
-    color: #666;
-    margin-bottom: 10px;
-  }
-  
-  .comment-section button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  
-  .comment-section button:hover {
-    background-color: #0056b3;
-  }
-  
-  .comments-list {
-    margin-top: 0.5rem;
-    max-height: 150px;
-    overflow-y: auto;
-    border-top: 1px solid #ddd;
-    padding-top: 10px;
-  }
-  
-  .comments-list p {
-    margin: 0.5rem 0;
-    color: #555;
-  }
-  
-  .share-modal {
-    position: relative;
-    margin: auto;
-    padding: 2rem;
-    background: #fff;
-    border-radius: 8px;
-    width: 80%;
-    max-width: 400px;
-  }
-  
-  .share-modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-  }
-  
-  .share-modal h2 {
-    margin-top: 0;
-  }
-  
-  .share-modal button {
-    display: block;
-    width: 100%;
-    margin: 0.5rem 0;
-    padding: 0.5rem;
-    border: none;
-    background-color: #5daddb;
-    color: #fff;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  
-  .share-modal button:hover {
-    background-color: #6eccbb;
-  }
-  
-  @media screen and (max-width: 768px) {
-    .blog-card-wrapper {
-      width: calc(50% - 1rem);
-    }
-  }
-  
-  /* Media query for mobile devices */
-  @media screen and (max-width: 480px) {
-    .blog-card-wrapper {
-      width: 100%;
-    }
-  }
+}

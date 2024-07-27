@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { db } from '../config/Firebase';
-import { collection, query, where, onSnapshot, addDoc, serverTimestamp, deleteDoc, getDocs } from 'firebase/firestore';
+import { collection, query, onSnapshot, addDoc, serverTimestamp, deleteDoc, getDocs, where } from 'firebase/firestore';
 import { useAuth } from '../context/authContext.jsx';
 import './BlogCard.css';
 import { toast } from 'react-toastify';
-import { FaComment, FaShare, FaThumbsUp, FaTimes } from 'react-icons/fa';
+import { FaComment, FaShare, FaThumbsUp, FaTimes, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import Modal from 'react-modal';
 
 const BlogCard = () => {
@@ -16,18 +16,17 @@ const BlogCard = () => {
   const [shareModalIsOpen, setShareModalIsOpen] = useState(false);
   const [currentBlogId, setCurrentBlogId] = useState(null);
   const [likes, setLikes] = useState({});
+  const scrollContainerRef = useRef(null);
 
   useEffect(() => {
-    if (currentUser) {
-      const q = query(collection(db, 'blogs'), where('authorId', '==', currentUser.uid));
-      const unsubscribe = onSnapshot(q, (snapshot) => {
-        const blogsData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setBlogs(blogsData);
-      });
+    const q = query(collection(db, 'blogs'));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const blogsData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setBlogs(blogsData);
+    });
 
-      return () => unsubscribe();
-    }
-  }, [currentUser]);
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     const q = query(collection(db, 'comments'));
@@ -55,16 +54,23 @@ const BlogCard = () => {
   }, []);
 
   const handleCommentSubmit = async (blogId) => {
+    if (!currentUser) {
+      toast.error('You must be logged in to comment.');
+      return;
+    }
+
     if (!comment.trim()) {
       toast.error('Comment cannot be empty.');
       return;
     }
 
+    const authorName = currentUser.displayName ? currentUser.displayName : 'Anonymous';
+
     try {
       await addDoc(collection(db, 'comments'), {
         blogId,
         comment,
-        author: currentUser.displayName,
+        author: authorName,
         authorId: currentUser.uid,
         createdAt: serverTimestamp(),
       });
@@ -77,26 +83,19 @@ const BlogCard = () => {
   };
 
   const handleLike = async (blogId) => {
-    if (!currentUser) {
-      toast.error('You must be logged in to like a blog.');
-      return;
-    }
-
-    const blogLikes = likes[blogId] || [];
-    const userHasLiked = blogLikes.includes(currentUser.uid);
-
     try {
-      if (userHasLiked) {
-        const likeQuery = query(collection(db, 'likes'), where('blogId', '==', blogId), where('userId', '==', currentUser.uid));
-        const snapshot = await getDocs(likeQuery);
-        snapshot.forEach(async (doc) => {
-          await deleteDoc(doc.ref);
+      const likeId = `${blogId}_anonymous`;
+      const likeRef = collection(db, 'likes');
+      const likeDoc = await getDocs(query(likeRef, where('id', '==', likeId)));
+
+      if (likeDoc.empty) {
+        await addDoc(likeRef, {
+          id: likeId,
+          blogId,
+          createdAt: serverTimestamp(),
         });
       } else {
-        await addDoc(collection(db, 'likes'), {
-          blogId,
-          userId: currentUser.uid,
-        });
+        await deleteDoc(likeDoc.docs[0].ref);
       }
     } catch (error) {
       toast.error('Failed to update like. Please try again.');
@@ -139,58 +138,74 @@ const BlogCard = () => {
     closeShareModal();
   };
 
-  const closeCommentSection = () => {
-    setSelectedBlog(null);
+  const toggleCommentSection = (blogId) => {
+    setSelectedBlog(selectedBlog === blogId ? null : blogId);
     setComment('');
   };
 
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: -scrollContainerRef.current.offsetWidth, behavior: 'smooth' });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: scrollContainerRef.current.offsetWidth, behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div>
+    <div className="blog-section">
       <h2 className="blog-heading">Blogs</h2>
-      <div className="blog-card-container">
-        {blogs.map(blog => (
-          <div key={blog.id} className="blog-card-wrapper">
-            <div className="blog-card">
-              <h3>{blog.title}</h3>
-              <p className="category">{blog.category}</p>
-              <p className="content">{blog.content}</p>
-              <p className="date">{blog.createdAt ? new Date(blog.createdAt.seconds * 1000).toLocaleString() : 'N/A'}</p>
-              <div className="actions">
-                <button className="comment_button" onClick={() => setSelectedBlog(selectedBlog === blog.id ? null : blog.id)}>
-                  <FaComment /> Comment
-                </button>
-                <button className="share_button" onClick={() => openShareModal(blog.id)}>
-                  <FaShare /> Share
-                </button>
-                <button className="like_button" onClick={() => handleLike(blog.id)}>
-                  <FaThumbsUp /> Like {likes[blog.id]?.length || 0}
-                </button>
-              </div>
-            </div>
-            {selectedBlog === blog.id && (
-              <div className="comment-section">
-                <div className="comment-header">
-                  <h4>Comments</h4>
-                  <button className="close-button" onClick={closeCommentSection}>
-                    <FaTimes />
+      <div className="blog-scroll-container">
+        <button className="scroll-button left" onClick={scrollLeft}><FaChevronLeft /></button>
+        <div className="blog-card-container" ref={scrollContainerRef}>
+          {blogs.map(blog => (
+            <div key={blog.id} className={`blog-card-wrapper ${selectedBlog === blog.id ? 'expanded' : ''}`}>
+              <div className="blog-card">
+                <h3>{blog.title}</h3>
+                <p className="category">{blog.category}</p>
+                <p className="content">{blog.content}</p>
+                <p className="date">{blog.createdAt ? new Date(blog.createdAt.seconds * 1000).toLocaleString() : 'N/A'}</p>
+                <div className="actions">
+                  <button className="comment_button" onClick={() => toggleCommentSection(blog.id)}>
+                    <FaComment /> Comment
+                  </button>
+                  <button className="share_button" onClick={() => openShareModal(blog.id)}>
+                    <FaShare /> Share
+                  </button>
+                  <button className="like_button" onClick={() => handleLike(blog.id)}>
+                    <FaThumbsUp /> Like {likes[blog.id]?.length || 0}
                   </button>
                 </div>
-                <textarea
-                  placeholder="Add a comment..."
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)}
-                />
-                <p className="commenting-as">Commenting as: {currentUser.displayName}</p>
-                <button onClick={() => handleCommentSubmit(blog.id)}>Submit</button>
-                <div className="comments-list">
-                  {filteredComments(blog.id).map(comment => (
-                    <p key={comment.id}><strong>{comment.author}:</strong> {comment.comment}</p>
-                  ))}
-                </div>
               </div>
-            )}
-          </div>
-        ))}
+              {selectedBlog === blog.id && (
+                <div className="comment-section">
+                  <div className="comment-header">
+                    <h4>Comments ({filteredComments(blog.id).length})</h4>
+                    <button className="close-button" onClick={() => toggleCommentSection(blog.id)}>
+                      <FaTimes />
+                    </button>
+                  </div>
+                  <textarea
+                    placeholder="Add a comment..."
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                  />
+                  <p className="commenting-as">Commenting as: {currentUser ? currentUser.displayName : 'Anonymous'}</p>
+                  <button onClick={() => handleCommentSubmit(blog.id)}>Submit</button>
+                  <div className="comments-list">
+  {filteredComments(blog.id).map(comment => (
+    <p key={comment.id}><strong>{comment.author}:</strong> {comment.comment}</p>
+  ))}
+</div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+        <button className="scroll-button right" onClick={scrollRight}><FaChevronRight /></button>
       </div>
 
       <Modal
