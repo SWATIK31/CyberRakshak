@@ -31,6 +31,7 @@ function App() {
                 <ArticlesSection id="articles" />
                 <Resources id="resources" />
                 <HelpSection id="safety-tips" />
+                <BlogCard id="blog" />
                 <Chatbot id="bot"/>
               </main>
             } />
@@ -38,7 +39,6 @@ function App() {
             <Route path="/register" element={<Signup />} />
             <Route path="/dashboard" element={<Dashboard />} />
           </Routes>
-          <BlogCard /> {/* Add this line to include BlogCard above Footer */}
           <ToastContainer />
           <Footer />
         </div>

@@ -17,7 +17,7 @@ function HeroSection() {
       if (headingIndex < fullHeadingText.length) {
         setHeadingText(fullHeadingText.slice(0, headingIndex + 1));
         headingIndex++;
-        headingTimer = setTimeout(typeHeading, 100); // Adjust speed as needed
+        headingTimer = setTimeout(typeHeading, 100); 
       } else {
         typeParagraph();
       }
